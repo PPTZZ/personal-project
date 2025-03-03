@@ -5,14 +5,12 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
+
 interface Props {}
 
-const Login: NextPage<Props> = ({}) => {
+const Page: NextPage<Props> = ({}) => {
   return (
     <div>
-      <form action="" className="bg-transparent grid grid-cols-1 sm:grid-cols-2 sm:place-items-start mt-8 z-10">
-
-      </form>
       <Image
         src={blob}
         alt="blob"
@@ -48,6 +46,6 @@ const Login: NextPage<Props> = ({}) => {
       />
     </div>
   );
-}
+};
 
-export default Login
+export default Page;

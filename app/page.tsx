@@ -4,6 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import blob from "@/public/blob.svg";
 import banana from "@/public/banana.png";
+import strawberry from "@/public/strawberry-web.png";
+import leafs from "@/public/leafs.png";
+import leafsTab from "@/public/leafs-tab.png";
 import Button from "./ui/navigation/button";
 
 const Home: NextPage = ({}) => {
@@ -23,13 +26,13 @@ const Home: NextPage = ({}) => {
     console.log("Form submitted:", formData);
   };
   return (
-    <div className="flex flex-col px-5 sm:px-8  sm:w-4/5">
-      <h1 className="font-bold text-lg mt-8 sm:text-4xl sm:mt-24">
+    <div className="flex flex-col h-fit sm:w-4/5 md:w-[38rem] px-5 sm:px-8 md:px-4">
+      <h1 className="font-bold text-lg mt-8 sm:text-4xl sm:mt-24 ">
         Calculate your daily calorie intake right now
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="bg-white grid grid-cols-1 sm:grid-cols-2 sm:place-items-start mt-8"
+        className="bg-transparent grid grid-cols-1 sm:grid-cols-2 sm:place-items-start mt-8 z-10"
       >
         <div className="flex flex-col gap-8">
           <input
@@ -88,7 +91,7 @@ const Home: NextPage = ({}) => {
                     className="hidden peer "
                     required
                   />
-                  <span className="size-5 border-2 border-gray-500 rounded-full flex items-center justify-center peer-checked:bg-primary peer-checked:ring-inset peer-checked:ring-2 peer-checked:ring-white transition-all"></span>
+                  <span className="size-5 border-2 border-gray-500 rounded-full flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:ring-inset peer-checked:ring-2 peer-checked:ring-white transition-all"></span>
                   <span className="text-gray-800 peer-checked:text-primary">
                     {num}
                   </span>
@@ -97,21 +100,40 @@ const Home: NextPage = ({}) => {
             </div>
           </div>
         </div>
-        <Button />
+        <Button text="Start losing weight" variant="btn-outline" />
       </form>
       <Image
-        width={553}
-        height={750}
         src={blob}
         alt="blob"
-        className=" hidden sm:block sm:absolute sm:-bottom-48 sm:-right-8 sm:-z-20"
+        className=" hidden md:block md:absolute md:-bottom-48 md:-right-8 lg:-right-0 lg:bottom-0 lg:-w[38rem] lg:h-[51rem]"
       />
       <Image
         width={498}
         height={450}
         src={banana}
         alt="banana image"
-        className="hidden sm:block sm:absolute sm:-bottom-28 sm:right-0 sm:-z-10"
+        className="hidden md:block md:absolute md:-bottom-28 md:right-0 lg:-top-4"
+      />
+      <Image
+        width={286}
+        height={279}
+        src={strawberry}
+        alt="strawberry image"
+        className="hidden md:block md:absolute md:bottom-48 md:right-10 lg:bottom-0 lg:right-32"
+      />
+      <Image
+        width={530}
+        height={531}
+        src={leafsTab}
+        alt="leafs image image"
+        className="hidden md:block md:absolute md:-bottom-0 md:left-4 lg:hidden"
+      />
+      <Image
+        width={746}
+        height={846}
+        src={leafs}
+        alt="leafs image image"
+        className="hidden lg:block lg:absolute lg:right-56 lg:top-0"
       />
     </div>
   );

@@ -14,9 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jostFont.className} antialiased min-w-[18.75rem] h-screen`}>
-        <Navbar />
-        {children}
+      <body className="min-w-[18.75rem]">
+        <div
+          className={`${jostFont.className} antialiased  h-[40.5rem] sm:h-[64rem] lg:max-w-[80rem] lg:mx-auto  pt-5 lg:pt-20`}
+        >
+          <Navbar />
+          {children}
+        </div>
       </body>
     </html>
   );

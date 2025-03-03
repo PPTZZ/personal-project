@@ -11,3 +11,11 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.btn-normal{
+  @apply bg-primary text-white;
+}
+
+.btn-outline{
+  @apply bg-white text-primary border-2 border-primary
+}
