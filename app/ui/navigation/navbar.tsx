@@ -1,10 +1,13 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.svg";
 import slim from "@/public/Slim.svg";
 import mom from "@/public/Mom.svg";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathName = usePathname();
   return (
     <div className="flex bg-transparent  items-center space-x-4 border-b-2 border-neutral-200 lg:border-none px-5 sm:px-8 md:px-4 pb-4">
       <div className="flex-grow lg:flex-grow-0 flex items-center space-x-3 ">
@@ -21,13 +24,15 @@ const Navbar = () => {
         </div>
       </div>
       <Link href={"/login"}>
-        <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12">
+        <p
+          className={`font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12`}
+        >
           LOG IN
         </p>
       </Link>
       <Link href={"/register"}>
         <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12">
-          REGISTER
+          REGISTRATION
         </p>
       </Link>
     </div>

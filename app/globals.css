@@ -13,9 +13,13 @@ input[type="number"] {
 }
 
 .btn-normal{
-  @apply bg-primary text-white;
+  @apply bg-primary text-white w-44 h-11;
 }
 
 .btn-outline{
-  @apply bg-white text-primary border-2 border-primary
+  @apply bg-white text-primary border-2 border-primary w-44 h-11
+}
+
+.btn-calculator{
+  @apply w-52 h-11 bg-primary text-white
 }

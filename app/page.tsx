@@ -7,7 +7,7 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import Button from "./ui/navigation/button";
+import Button from "./ui/button";
 
 const Home: NextPage = ({}) => {
   const [formData, setFormData] = useState({
@@ -100,7 +100,7 @@ const Home: NextPage = ({}) => {
             </div>
           </div>
         </div>
-        <Button text="Start losing weight" variant="btn-outline" />
+        <Button text="Start losing weight" variant="btn-calculator" />
       </form>
       <Image
         src={blob}
