@@ -1,6 +1,7 @@
 export type ButtonProps = {
   text: string;
   variant: "btn-normal" | "btn-outline" | "btn-calculator";
+  action?: (e?: React.FormEvent) => void;
 };
 
 export type TProducts = {
@@ -8,5 +9,17 @@ export type TProducts = {
   weight: number;
   title: string;
   calories: number;
-  groupBloodNotAllowed: number[];
+  groupBloodNotAllowed: [{}];
+};
+
+export type TUsers = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type TModalProps = {
+  text?: string;
+  calories?: number;
+  onClick?: () => void;
 };

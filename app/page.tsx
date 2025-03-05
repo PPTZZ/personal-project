@@ -7,7 +7,7 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import Button from "./ui/button";
+
 
 const Home: NextPage = ({}) => {
   const [formData, setFormData] = useState({
@@ -21,9 +21,9 @@ const Home: NextPage = ({}) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    
   };
   return (
     <div className="flex flex-col h-fit sm:w-4/5 md:w-[38rem] px-5 sm:px-8 md:px-4">
@@ -100,7 +100,7 @@ const Home: NextPage = ({}) => {
             </div>
           </div>
         </div>
-        <Button text="Start losing weight" variant="btn-calculator" />
+        <button className="btn-calculator" type="submit">Start losing weight</button>
       </form>
       <Image
         src={blob}

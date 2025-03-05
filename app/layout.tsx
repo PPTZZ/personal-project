@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { jostFont } from "./ui/fonts";
+import { jostFont } from "./lib/fonts";
 import Navbar from "./ui/navigation/navbar";
 
 export const metadata: Metadata = {

@@ -6,9 +6,9 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import Button from "../../ui/button";
 import Link from "next/link";
 import { useState } from "react";
+import axios from "axios";
 
 const Register: NextPage = ({}) => {
   const [formData, setFormData] = useState({
@@ -21,17 +21,27 @@ const Register: NextPage = ({}) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    try {
+      await axios.post("/users", formData);
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
+      (e.currentTarget as HTMLFormElement).reset();
+    } catch (err) {}
   };
   return (
     <div>
       <form
         action=""
         className="bg-transparent mt-10 z-10 flex flex-col sm:w-96 items-center px-5 sm:items-start"
+        onSubmit={handleSubmit}
       >
-        <h2 className="font-semibold text-primary">Registration</h2>
+        <h2 className="font-semibold text-primary mt-14">Registration</h2>
         <input
           type="text"
           name="name"
@@ -39,7 +49,7 @@ const Register: NextPage = ({}) => {
           onChange={handleChange}
           placeholder="Name *"
           required
-          className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5 mt-14"
+          className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5 "
         />
         <input
           type="text"
@@ -48,7 +58,7 @@ const Register: NextPage = ({}) => {
           onChange={handleChange}
           placeholder="Email *"
           required
-          className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5 mt-14"
+          className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5 "
         />
         <input
           type="password"
@@ -60,9 +70,11 @@ const Register: NextPage = ({}) => {
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5"
         />
         <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-8">
-          <Button text="Register" variant="btn-normal"/>
+          <button className="btn-normal" onClick={handleSubmit}>
+            Register
+          </button>
           <Link href={"/login"}>
-            <Button text="Log in" variant="btn-outline" />
+            <button className="btn-outline">Log in</button>
           </Link>
         </div>
       </form>
