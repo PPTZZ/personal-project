@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 import { TProducts } from "../lib/definitions";
 
 const productSchema: Schema<TProducts> = new Schema({
@@ -15,10 +15,10 @@ const productSchema: Schema<TProducts> = new Schema({
     type: Number,
   },
   groupBloodNotAllowed: {
-    type: [{}],
+    type: [Boolean],
   },
 });
 
-const Product = model("Product", productSchema);
+const Product = models.Product || model("Product", productSchema);
 
 export default Product;

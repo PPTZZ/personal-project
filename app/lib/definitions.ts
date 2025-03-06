@@ -9,7 +9,7 @@ export type TProducts = {
   weight: number;
   title: string;
   calories: number;
-  groupBloodNotAllowed: [{}];
+  groupBloodNotAllowed: [boolean];
 };
 
 export type TUsers = {
@@ -21,5 +21,13 @@ export type TUsers = {
 export type TModalProps = {
   text?: string;
   calories?: number;
-  onClick?: () => void;
+  onClose?: () => void;
+  onOK?: () => void;
 };
+
+export type RootState = {
+  products: {
+    products: TProducts[];
+  };
+};
+
