@@ -21,8 +21,19 @@ export const calorieCalculator = (
   );
 };
 
-export const getProducts = async (bloodType:number)=>{
-const response = await axios.get(`http://localhost:3000/products?${bloodType}`);
-console.log(response.data);
-
-}
+export const getLimitedProducts = createAsyncThunk(
+  "products/getLimitedProducts",
+  async (_bloodType: number, thunkAPI): Promise<any> => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/products?bloodType=${_bloodType}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+      throw error;
+    }
+  }
+);

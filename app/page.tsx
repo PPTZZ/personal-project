@@ -9,15 +9,14 @@ import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "./lib/store"; // Adjust the path to your store file
-import { getProducts } from "./lib/services";
-
+import { AppDispatch } from "./lib/store";
+import { getLimitedProducts } from "./lib/services";
 
 const Home: NextPage = ({}) => {
   const searchParams = useSearchParams();
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const bloodType = Number(searchParams.get('bloodType'))
+  const bloodType = searchParams.get("bloodType");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -38,7 +37,7 @@ const Home: NextPage = ({}) => {
     const url = new URL(window.location.href);
     url.searchParams.set("showDialog", "y");
     router.push(url.toString());
-    getProducts(bloodType)
+    dispatch(getLimitedProducts(bloodType ? parseFloat(bloodType) : 0));
   };
 
   // Remember to import react-hot-toast
@@ -106,8 +105,14 @@ const Home: NextPage = ({}) => {
                       type="radio"
                       name="bloodType"
                       id={`bld${num}`}
-                      value={num}
-                      onChange={(e) => handleChange(e, "bloodType")}
+                      value={num }
+                      onChange={(e) => handleChange(e, "bloodType")} 
+                      onClick={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        if (target.checked) {
+                          handleChange({ ...e, target }, "bloodType");
+                        }
+                      }}
                       className="hidden peer "
                       required
                     />

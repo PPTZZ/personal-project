@@ -7,11 +7,14 @@ import { useRouter } from "next/navigation";
 import { calorieCalculator } from "../lib/services";
 import close from "@/public/close.svg";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { selectLimitedBannedProducts } from "../lib/features/selectors";
 
 const Modal: React.FC<TModalProps> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
+  const bannedProducts = useSelector(selectLimitedBannedProducts);
   const showDialog = searchParams.get("showDialog");
   const height = searchParams.get("height");
   const age = searchParams.get("age");
@@ -24,6 +27,7 @@ const Modal: React.FC<TModalProps> = () => {
     } else {
       dialogRef.current?.close();
     }
+    console.log(bannedProducts);
   }, [showDialog]);
 
   const closeDialog = () => {
@@ -37,6 +41,7 @@ const Modal: React.FC<TModalProps> = () => {
     currentWeight ? parseFloat(currentWeight) : 0,
     desiredWeight ? parseFloat(desiredWeight) : 0
   );
+
   const dialog: JSX.Element | null =
     showDialog === "y" ? (
       <dialog
@@ -54,13 +59,28 @@ const Modal: React.FC<TModalProps> = () => {
             <span className="text-xl"> kcal</span>
           </p>
           <div className="w-2/4 border-t-2 border-neutral-200 mt-8 pt-2">
-            <p className="font-semibold">Foods you should no eat</p>
-            <div></div>
+            <p className="font-semibold">Foods you should not eat</p>
+            <div className="mt-5">
+              {bannedProducts?.length ? (
+                bannedProducts.map((product, index) => (
+                  <p key={index} className="text-neutral-200">
+                    {index + 1}. {product.toString()}
+                  </p>
+                ))
+              ) : (
+                <p>No restricted foods found.</p>
+              )}
+            </div>
           </div>
-          <button onClick={closeDialog} className="rounded-full bg-neutral-100 absolute top-8 right-8">
+          <button
+            onClick={closeDialog}
+            className="rounded-full bg-neutral-100 absolute top-8 right-8"
+          >
             <Image src={close} alt="close btn" />
           </button>
-          <button onClick={closeDialog} className="btn-calculator">Start loosing weight</button>
+          <button onClick={closeDialog} className="btn-calculator">
+            Start loosing weight
+          </button>
         </div>
       </dialog>
     ) : null;

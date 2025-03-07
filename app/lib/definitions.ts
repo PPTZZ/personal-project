@@ -28,6 +28,8 @@ export type TModalProps = {
 export type RootState = {
   products: {
     products: TProducts[];
+    bannedProducts: TProducts[];
+    isLoading: boolean;
+    error: string;
   };
 };
-
