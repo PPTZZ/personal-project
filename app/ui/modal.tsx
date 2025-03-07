@@ -5,6 +5,8 @@ import { useRef, useEffect } from "react";
 import { TModalProps } from "../lib/definitions";
 import { useRouter } from "next/navigation";
 import { calorieCalculator } from "../lib/services";
+import close from "@/public/close.svg";
+import Image from "next/image";
 
 const Modal: React.FC<TModalProps> = () => {
   const router = useRouter();
@@ -37,16 +39,28 @@ const Modal: React.FC<TModalProps> = () => {
   );
   const dialog: JSX.Element | null =
     showDialog === "y" ? (
-      <dialog ref={dialogRef} className="backdrop:bg-neutral-700/50 flex justify-center items-center">
+      <dialog
+        ref={dialogRef}
+        className="backdrop:bg-neutral-700/50 flex justify-center items-center shadow-xl"
+      >
         <div className="relative flex flex-col items-center w-[42rem] h-[35.75rem] pt-16 ">
-          <h2 className="font-bold text-2xl text-center mb-5 leading-[140%]"> Your recommended daily<br/>calorie intake is</h2>
-          <p className="tracking-wider font-bold text-5xl">{recomandedCalories}<span className="text-xl"> kcal</span></p>
-          <div>
-            <p>Foods you should no eat</p>
-            <div>lista produse interzise</div>
+          <h2 className="font-bold text-2xl text-center mb-5 leading-[140%]">
+            Your recommended daily
+            <br />
+            calorie intake is
+          </h2>
+          <p className="tracking-wider font-bold text-5xl">
+            {recomandedCalories}
+            <span className="text-xl"> kcal</span>
+          </p>
+          <div className="w-2/4 border-t-2 border-neutral-200 mt-8 pt-2">
+            <p className="font-semibold">Foods you should no eat</p>
+            <div></div>
           </div>
-          <button onClick={closeDialog}>close</button>
-          <button onClick={closeDialog}>start loosing weight</button>
+          <button onClick={closeDialog} className="rounded-full bg-neutral-100 absolute top-8 right-8">
+            <Image src={close} alt="close btn" />
+          </button>
+          <button onClick={closeDialog} className="btn-calculator">Start loosing weight</button>
         </div>
       </dialog>
     ) : null;

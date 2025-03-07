@@ -1,6 +1,5 @@
 "use client";
 import { NextPage } from "next";
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Modal from "./ui/modal";
 import Image from "next/image";
@@ -9,11 +8,16 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./lib/store"; // Adjust the path to your store file
+import { getProducts } from "./lib/services";
+
 
 const Home: NextPage = ({}) => {
   const searchParams = useSearchParams();
-
+  // const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  const bloodType = Number(searchParams.get('bloodType'))
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -34,6 +38,7 @@ const Home: NextPage = ({}) => {
     const url = new URL(window.location.href);
     url.searchParams.set("showDialog", "y");
     router.push(url.toString());
+    getProducts(bloodType)
   };
 
   // Remember to import react-hot-toast
