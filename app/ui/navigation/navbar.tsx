@@ -6,6 +6,7 @@ import slim from "@/public/Slim.svg";
 import mom from "@/public/Mom.svg";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "@/app/lib/features/selectors";
+import menu from "@/public/menu.svg";
 
 const Navbar = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -25,7 +26,7 @@ const Navbar = () => {
           <Image height={16} width={49} src={mom} alt="Mom" />
         </div>
       </div>
-      {isLoggedIn === false ? (
+      {isLoggedIn === true ? (
         <>
           <Link href={"/login"}>
             <p
@@ -44,16 +45,26 @@ const Navbar = () => {
         <>
           <Link href={"/user/diary"}>
             <p
-              className={`font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12`}
+              className={`font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12 hidden lg:block`}
             >
               DIARY
             </p>
           </Link>
           <Link href={"/user/calculator"}>
-            <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12">
+            <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12 hidden lg:block">
               CALCULATOR
             </p>
           </Link>
+          <div className="flex absolute items-center right-20 lg:right-56 gap-5">
+            <p className="font-bold text-xs leading-4 text-textColor lg:relative lg:top-5 lg:right-12 ">
+              User
+            </p>
+            <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-200">
+              Exit
+            </p>
+            <Image src={menu} alt="menu icon" className="lg:hidden" />
+          </div>
+          <div className="absolute -bottom-64 -left-4 h-[30rem] w-[48rem] lg:w-2/5 lg:right-0 lg:top-0 -z-10 bg-neutral-300"></div>
         </>
       )}
     </div>

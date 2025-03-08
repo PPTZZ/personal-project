@@ -41,14 +41,14 @@ const UserCalculator: NextPage = ({}) => {
   return (
     <>
       <Modal />
-      <div className="flex">
-        <div className="flex flex-col h-fit  px-5 sm:px-8 md:px-4 w-3/5">
+      <div className="flex flex-col lg:flex-row ">
+        <div className="flex flex-col h-fit px-5 sm:px-8 md:px-4 md:w-3/5">
           <h1 className="font-bold text-lg mt-8 sm:text-4xl sm:mt-24 ">
             Calculate your daily calorie intake right now
           </h1>
           <form
             onSubmit={handleSubmit}
-            className="bg-transparent grid grid-cols-1 sm:grid-cols-2 sm:place-items-start mt-8 z-10"
+            className="bg-transparent grid grid-cols-1 sm:gap-7 sm:grid-cols-2 sm:place-items-start mt-8 z-10"
           >
             <div className="flex flex-col gap-8">
               <input
@@ -132,18 +132,33 @@ const UserCalculator: NextPage = ({}) => {
             height={531}
             src={leafsTab}
             alt="leafs image image"
-            className="hidden md:block md:absolute md:-bottom-0 md:left-4 lg:hidden"
+            className="hidden md:block md:absolute md:-bottom-64 md:-right-48 lg:hidden"
           />
           <Image
             width={746}
             height={846}
             src={leafs}
             alt="leafs image image"
-            className="hidden lg:block lg:absolute lg:right-56 lg:top-0"
+            className="hidden lg:block lg:absolute lg:-right-80 lg:top-56 rotate-45"
           />
         </div>
-        <div className="w-2/5 bg-red-500">
-
+        <div className="lg:w-2/5 flex sm:px-8 lg:flex-col gap-20 py-20 lg:items-baseline mt-24">
+          <div className="lg:ml-32 w-2/5 lg:w-full">
+            <p className="font-bold text-textColor">Summary for date</p>
+            <p className="w-full text-secondary font-semibold sm:py-2">Left</p>
+            <p className="w-full text-secondary font-semibold sm:py-2">
+              consumed
+            </p>
+            <p className="w-full text-secondary font-semibold sm:py-2">
+              daily rate
+            </p>
+            <p className="w-full text-secondary font-semibold sm:py-2">
+              n% of normal
+            </p>
+          </div>
+          <div className=" w-2/5 lg:mt-10">
+            <p className="font-bold text-textColor">Food not recomended</p>
+          </div>
         </div>
       </div>
     </>

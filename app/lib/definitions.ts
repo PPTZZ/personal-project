@@ -18,6 +18,10 @@ export type TUsers = {
   password: string;
 };
 
+export type TEntries = {
+  
+}
+
 export type TModalProps = {
   text?: string;
   calories?: number;
