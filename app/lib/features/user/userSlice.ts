@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState={
-    isLoggedIn:false,
-    diaryEntries:[],
-    bannedProducts:[]
-}
+const initialState = {
+  isLoggedIn: false,
+  diaryEntries: [],
+  bannedProducts: [],
+};
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: "userSlice",
   initialState,
-  reducers: {
-    // Add your reducers here
-  },
+  reducers: {},
 });
+
+export const userReducer = userSlice.reducer;

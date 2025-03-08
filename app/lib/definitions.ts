@@ -32,4 +32,7 @@ export type RootState = {
     isLoading: boolean;
     error: string;
   };
+  user: {
+    isLoggedIn: boolean;
+  };
 };

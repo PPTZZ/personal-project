@@ -3,7 +3,15 @@ import bcryptjs from "bcryptjs";
 import axios from "axios";
 
 export const hashPassword = (password: string): string => {
-  return bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
+  const slat = bcryptjs.genSaltSync(10);
+  return bcryptjs.hashSync(password, slat);
+};
+
+export const verifyPassword = (
+  enteredPassword: string,
+  userPassword: string
+): boolean => {
+  return bcryptjs.compareSync(enteredPassword, userPassword);
 };
 
 export const calorieCalculator = (

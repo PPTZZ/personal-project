@@ -6,24 +6,14 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import { useState } from "react";
-import Button from "../../ui/button";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login: NextPage = ({}) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const router = useRouter();
+  const handleClick = () => {
+    router.replace("/register");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };
   return (
     <div>
       <form
@@ -34,8 +24,6 @@ const Login: NextPage = ({}) => {
         <input
           type="text"
           name="email"
-          value={formData.email}
-          onChange={handleChange}
           placeholder="Email *"
           required
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5 mt-14"
@@ -43,17 +31,17 @@ const Login: NextPage = ({}) => {
         <input
           type="password"
           name="password"
-          value={formData.password}
-          onChange={handleChange}
           placeholder="Password *"
           required
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5"
         />
         <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-8">
-          <Button text="Log in" variant="btn-normal" />
-          <Link href={"/register"}>
-            <Button text="Register" variant="btn-outline" />
-          </Link>
+          <button type="submit" className="btn-normal">
+            Log in
+          </button>
+          <button onClick={handleClick} className="btn-outline">
+            Register
+          </button>
         </div>
       </form>
       <Image

@@ -27,7 +27,6 @@ const Modal: React.FC<TModalProps> = () => {
     } else {
       dialogRef.current?.close();
     }
-    console.log(bannedProducts);
   }, [showDialog]);
 
   const closeDialog = () => {

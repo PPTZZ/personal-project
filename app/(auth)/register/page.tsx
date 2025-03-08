@@ -6,47 +6,24 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import Link from "next/link";
-import { useState } from "react";
-import axios from "axios";
+import { registerUser } from "@/app/actions/actions";
+import { useRouter } from "next/navigation";
 
 const Register: NextPage = ({}) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await axios.post("/users", formData);
-
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-      });
-      (e.currentTarget as HTMLFormElement).reset();
-    } catch (err) {}
+  const router = useRouter();
+  const handleClick = () => {
+    router.replace("/login");
   };
   return (
     <div>
       <form
-        action=""
+        action={registerUser}
         className="bg-transparent mt-10 z-10 flex flex-col sm:w-96 items-center px-5 sm:items-start"
-        onSubmit={handleSubmit}
       >
         <h2 className="font-semibold text-primary mt-14">Registration</h2>
         <input
           type="text"
           name="name"
-          value={formData.name}
-          onChange={handleChange}
           placeholder="Name *"
           required
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5 "
@@ -54,8 +31,6 @@ const Register: NextPage = ({}) => {
         <input
           type="text"
           name="email"
-          value={formData.email}
-          onChange={handleChange}
           placeholder="Email *"
           required
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5 "
@@ -63,19 +38,17 @@ const Register: NextPage = ({}) => {
         <input
           type="password"
           name="password"
-          value={formData.password}
-          onChange={handleChange}
           placeholder="Password *"
           required
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5"
         />
         <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-8">
-          <button className="btn-normal" onClick={handleSubmit}>
+          <button type="submit" className="btn-normal">
             Register
           </button>
-          <Link href={"/login"}>
-            <button className="btn-outline">Log in</button>
-          </Link>
+          <button onClick={handleClick} className="btn-outline">
+            Log in
+          </button>
         </div>
       </form>
       <Image
