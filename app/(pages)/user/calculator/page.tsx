@@ -1,42 +1,16 @@
-"use client";
 import { NextPage } from "next";
-import { useRouter, useSearchParams } from "next/navigation";
 import Modal from "@/app/ui/modal";
 import Image from "next/image";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/app/lib/store";
-import { getLimitedProducts } from "@/app/lib/services";
+import { getSession } from "@/app/actions/actions";
+import { redirect } from "next/navigation";
 
-const UserCalculator: NextPage = ({}) => {
-  const searchParams = useSearchParams();
-  const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
-  const bloodType = searchParams.get("bloodType");
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    param: string
-  ) => {
-    const url = new URL(window.location.href);
-    if (e.target.value) {
-      url.searchParams.set(param, e.target.value);
-    } else {
-      url.searchParams.delete(param);
-    }
-    router.push(url.toString());
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    (e.currentTarget as HTMLFormElement).reset();
-    const url = new URL(window.location.href);
-    url.searchParams.set("showDialog", "y");
-    router.push(url.toString());
-    dispatch(getLimitedProducts(bloodType ? parseFloat(bloodType) : 0));
-  };
-
+const UserCalculator: NextPage = async ({}) => {
+  const session = await getSession();
+  if (!session.isLoggedIn) {
+    redirect("/");
+  }
   // Remember to import react-hot-toast
   return (
     <>
@@ -46,35 +20,26 @@ const UserCalculator: NextPage = ({}) => {
           <h1 className="font-bold text-lg mt-8 sm:text-4xl sm:mt-24 ">
             Calculate your daily calorie intake right now
           </h1>
-          <form
-            onSubmit={handleSubmit}
-            className="bg-transparent grid grid-cols-1 sm:gap-7 sm:grid-cols-2 sm:place-items-start mt-8 z-10"
-          >
+          <form className="bg-transparent grid grid-cols-1 sm:gap-7 sm:grid-cols-2 sm:place-items-start mt-8 z-10">
             <div className="flex flex-col gap-8">
               <input
                 type="number"
                 name="height"
-                onChange={(e) => handleChange(e, "height")}
                 placeholder="Enter your height *"
-                value={searchParams.get("height") || ""}
                 required
                 className="w-full border-b-2 text-secondary font-semibold focus-visible:outline-none sm:py-5"
               />
               <input
                 type="number"
                 name="age"
-                onChange={(e) => handleChange(e, "age")}
                 placeholder="Enter your age *"
-                value={searchParams.get("age") || ""}
                 required
                 className="w-full border-b-2 text-secondary font-semibold focus-visible:outline-none  sm:py-5"
               />
               <input
                 type="number"
                 name="currentWeight"
-                onChange={(e) => handleChange(e, "currentWeight")}
                 placeholder="Enter your weight *"
-                value={searchParams.get("currentWeight") || ""}
                 required
                 className="w-full border-b-2 text-secondary font-semibold focus-visible:outline-none sm:py-5"
               />
@@ -83,9 +48,7 @@ const UserCalculator: NextPage = ({}) => {
               <input
                 type="number"
                 name="desiredWeight"
-                onChange={(e) => handleChange(e, "desiredWeight")}
                 placeholder="Enter your goal weight *"
-                value={searchParams.get("desiredWeight") || ""}
                 required
                 className="w-full border-b-2 text-secondary font-semibold focus-visible:outline-none sm:py-5"
               />
@@ -104,13 +67,6 @@ const UserCalculator: NextPage = ({}) => {
                         name="bloodType"
                         id={`bld${num}`}
                         value={num}
-                        onChange={(e) => handleChange(e, "bloodType")}
-                        onClick={(e) => {
-                          const target = e.target as HTMLInputElement;
-                          if (target.checked) {
-                            handleChange({ ...e, target }, "bloodType");
-                          }
-                        }}
                         className="hidden peer "
                         required
                       />

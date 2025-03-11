@@ -19,8 +19,12 @@ export type TUsers = {
 };
 
 export type TEntries = {
-  
-}
+  date: Date;
+  productName: string;
+  grams: number;
+  kcal: number;
+  owner: string;
+};
 
 export type TModalProps = {
   text?: string;
@@ -38,5 +42,18 @@ export type RootState = {
   };
   user: {
     isLoggedIn: boolean;
+    name: string;
+    _id: string;
   };
+  entries: {
+    entriesList: [];
+  };
+};
+
+export type TSessionData = {
+  userId?: string;
+  userEmail?: string;
+  userName?: string;
+  isLoggedIn: boolean;
+  session: string;
 };

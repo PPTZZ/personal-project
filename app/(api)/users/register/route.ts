@@ -1,5 +1,6 @@
 import dbConnect from "@/app/lib/dbConnect";
 import User from "@/app/models/userSchema";
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -11,7 +12,8 @@ export const POST = async (request: PostRequest): Promise<NextResponse> => {
   try {
     await dbConnect();
     const data = await request.json();
-    const { name, email, hashedPass } = data;
+    const { name, email, password } = data;
+    const hashedPass = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPass });
     await newUser.save();
     return NextResponse.json({ message: "User registered", status: 200 });

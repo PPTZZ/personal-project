@@ -1,4 +1,4 @@
-import type { TProducts, RootState } from "../definitions";
+import type { TProducts, RootState, TUsers } from "../definitions";
 
 // Products selectors
 export const selectProducts = (state: RootState): TProducts[] =>
@@ -6,7 +6,7 @@ export const selectProducts = (state: RootState): TProducts[] =>
 export const selectLimitedBannedProducts = (state: RootState): TProducts[] =>
   state.products?.bannedProducts;
 
-// User selectors
-export const selectIsLoggedIn = (state: RootState) => {
- return state.user?.isLoggedIn;
+// Entry selectors
+export const selectEntries = (state: RootState) => {
+  state.entries.entriesList;
 };

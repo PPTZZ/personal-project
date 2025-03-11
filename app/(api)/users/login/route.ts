@@ -23,7 +23,7 @@ export const POST = async (request: PostRequest): Promise<NextResponse> => {
         { status: 401 }
       );
     }
-    return NextResponse.json(user);
+    return NextResponse.json(user, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(

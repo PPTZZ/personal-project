@@ -6,18 +6,17 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import { useRouter } from "next/navigation";
+import { loginUser } from "@/app/actions/actions";
+import Link from "next/link";
+import { useActionState } from "react";
 
 const Login: NextPage = ({}) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.replace("/register");
-  };
+  const [state, formAction] = useActionState<any, FormData>(loginUser, undefined);
 
   return (
     <div>
       <form
-        action=""
+        action={formAction}
         className="bg-transparent mt-10 z-10 flex flex-col sm:w-96 items-center px-5 sm:items-start"
       >
         <h2 className="font-semibold text-primary">LOG IN</h2>
@@ -35,13 +34,14 @@ const Login: NextPage = ({}) => {
           required
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5"
         />
+        {state?.error && <p>{state.error}</p>}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-8">
           <button type="submit" className="btn-normal">
             Log in
           </button>
-          <button onClick={handleClick} className="btn-outline">
-            Register
-          </button>
+          <Link href={"/register"}>
+            <button className="btn-outline">Register</button>
+          </Link>
         </div>
       </form>
       <Image

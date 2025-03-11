@@ -1,15 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoggedIn: false,
+  userData: {
+    bannedProducts: [],
+    recomandedKcal: 0,
+    age: 0,
+    height: 0,
+    weight: 0,
+    desiredWeight: 0,
+  },
   diaryEntries: [],
-  bannedProducts: [],
 };
 
 const userSlice = createSlice({
   name: "userSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setUserDetails(state, action) {
+      return { ...state, ...action.payload };
+    },
+    setDiaryEntries(state, action) {
+      state.diaryEntries = action.payload;
+    },
+  },
 });
-
+export const { setUserDetails, setDiaryEntries } = userSlice.actions;
 export const userReducer = userSlice.reducer;

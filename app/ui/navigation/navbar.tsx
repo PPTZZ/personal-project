@@ -1,16 +1,13 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.svg";
 import slim from "@/public/Slim.svg";
 import mom from "@/public/Mom.svg";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "@/app/lib/features/selectors";
 import menu from "@/public/menu.svg";
+import { getSession, logoutUser } from "@/app/actions/actions";
 
-const Navbar = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
+const Navbar = async () => {
+  const session = await getSession();
   return (
     <div className="flex bg-transparent  items-center space-x-4 border-b-2 border-neutral-200 lg:border-none px-5 sm:px-8 md:px-4 pb-4">
       <div className="flex-grow lg:flex-grow-0 flex items-center space-x-3 ">
@@ -26,7 +23,7 @@ const Navbar = () => {
           <Image height={16} width={49} src={mom} alt="Mom" />
         </div>
       </div>
-      {isLoggedIn === true ? (
+      {session.isLoggedIn === false ? (
         <>
           <Link href={"/login"}>
             <p
@@ -57,14 +54,13 @@ const Navbar = () => {
           </Link>
           <div className="flex absolute items-center right-20 lg:right-56 gap-5">
             <p className="font-bold text-xs leading-4 text-textColor lg:relative lg:top-5 lg:right-12 ">
-              User
+              {session.userName}
             </p>
-            <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-200">
+            <p onClick={logoutUser} className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-200">
               Exit
             </p>
             <Image src={menu} alt="menu icon" className="lg:hidden" />
           </div>
-          <div className="absolute -bottom-64 -left-4 h-[30rem] w-[48rem] lg:w-2/5 lg:right-0 lg:top-0 -z-10 bg-neutral-300"></div>
         </>
       )}
     </div>

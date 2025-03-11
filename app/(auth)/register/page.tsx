@@ -14,10 +14,18 @@ const Register: NextPage = ({}) => {
   const handleClick = () => {
     router.replace("/login");
   };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const status = await registerUser(formData);
+    if (status === 200) {
+      router.replace("/login");
+    }
+  };
   return (
     <div>
       <form
-        action={registerUser}
+        onSubmit={handleSubmit}
         className="bg-transparent mt-10 z-10 flex flex-col sm:w-96 items-center px-5 sm:items-start"
       >
         <h2 className="font-semibold text-primary mt-14">Registration</h2>
