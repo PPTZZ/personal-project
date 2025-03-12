@@ -7,10 +7,8 @@ import { useRouter } from "next/navigation";
 import close from "@/public/close.svg";
 import Image from "next/image";
 import axios from "axios";
-import { fetchProducts } from "../lib/services";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector, useAppStore } from "../lib/hooks";
-import { addProducts } from "../lib/redux/slices/userSlice";
 import { RootState } from "../lib/redux/store";
 import { addBannedProducts } from "../actions/actions";
 
@@ -29,6 +27,7 @@ const Modal: React.FC<TModalProps> = ({ userId }) => {
     } else {
       dialogRef.current?.close();
     }
+    dispatch(addBannedProducts(bloodType))
   }, [showDialog]);
 
   const closeDialog = () => {
