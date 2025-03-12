@@ -4,22 +4,24 @@ import { useSearchParams } from "next/navigation";
 import { useRef, useEffect } from "react";
 import { TModalProps } from "../lib/definitions";
 import { useRouter } from "next/navigation";
-import { calorieCalculator } from "../lib/services";
 import close from "@/public/close.svg";
 import Image from "next/image";
-import { useSelector } from "react-redux";
-import { selectLimitedBannedProducts } from "../lib/features/selectors";
+import axios from "axios";
+import { fetchProducts } from "../lib/services";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector, useAppStore } from "../lib/hooks";
+import { addProducts } from "../lib/redux/slices/userSlice";
+import { RootState } from "../lib/redux/store";
+import { addBannedProducts } from "../actions/actions";
 
-const Modal: React.FC<TModalProps> = () => {
+const Modal: React.FC<TModalProps> = ({ userId }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const bannedProducts = useSelector(selectLimitedBannedProducts);
   const showDialog = searchParams.get("showDialog");
-  const height = searchParams.get("height");
-  const age = searchParams.get("age");
-  const currentWeight = searchParams.get("currentWeight");
-  const desiredWeight = searchParams.get("desiredWeight");
+  const recomandedCalories = searchParams.get("recomandedCalories");
+  const bloodType = searchParams.get("bloodType");
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (showDialog === "y") {
@@ -31,14 +33,20 @@ const Modal: React.FC<TModalProps> = () => {
 
   const closeDialog = () => {
     dialogRef.current?.close();
-    router.replace("/");
+    router.replace("/user/calculator");
   };
-
-  const recomandedCalories = calorieCalculator(
-    height ? parseFloat(height) : 0,
-    age ? parseFloat(age) : 0,
-    currentWeight ? parseFloat(currentWeight) : 0,
-    desiredWeight ? parseFloat(desiredWeight) : 0
+  const looseWeight = async () => {
+    const response = await axios.patch(
+      `http://localhost:3000/users/user-data`,
+      {
+        recomandedKcal: recomandedCalories,
+        id: userId,
+      }
+    );
+    router.replace("/user/calculator");
+  };
+  const bannedProductsList = useSelector(
+    (state: RootState) => state.user.bannedProducts
   );
 
   const dialog: JSX.Element | null =
@@ -60,9 +68,9 @@ const Modal: React.FC<TModalProps> = () => {
           <div className="w-2/4 border-t-2 border-neutral-200 mt-8 pt-2">
             <p className="font-semibold">Foods you should not eat</p>
             <div className="mt-5">
-              {bannedProducts?.length ? (
-                bannedProducts.map((product, index) => (
-                  <p key={index} className="text-neutral-200">
+              {bannedProductsList?.length ? (
+                bannedProductsList.map((product: string, index: number) => (
+                  <p key={index} className="text-neutral-500">
                     {index + 1}. {product.toString()}
                   </p>
                 ))
@@ -77,7 +85,7 @@ const Modal: React.FC<TModalProps> = () => {
           >
             <Image src={close} alt="close btn" />
           </button>
-          <button onClick={closeDialog} className="btn-calculator">
+          <button onClick={looseWeight} className="btn-calculator">
             Start loosing weight
           </button>
         </div>
@@ -88,3 +96,10 @@ const Modal: React.FC<TModalProps> = () => {
 };
 
 export default Modal;
+
+function initializeProducts(products: any): any {
+  return {
+    type: "INITIALIZE_PRODUCTS",
+    payload: products,
+  };
+}

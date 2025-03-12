@@ -1,14 +1,21 @@
 "use client";
-import { useEffect } from "react";
+import { formattedDate } from "../lib/services";
 import ConsumedProduct from "./consumedProduct";
-import { fetchData } from "../lib/services";
-import { useDispatch } from "react-redux";
-import { setDiaryEntries } from "../lib/features/user/userSlice";
 
-const ConsummedProductsList = ({ userId }: { userId: string }) => {
+const ConsummedProductsList = () => {
+
+  const defaultDate = formattedDate();
   return (
-    <div>
-      {}
+    <div className="lg:w-4/5 mt-16 h-60 overflow-scroll relative">
+      {/* {entryList.map((entry) => (
+        <ConsumedProduct
+          key={entry._id}
+          productName={entry.productName}
+          grams={entry.grams}
+          cals={entry.kcal}
+          id={entry._id}
+        />
+      ))} */}
     </div>
   );
 };

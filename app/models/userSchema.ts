@@ -7,10 +7,6 @@ const userSchema = new Schema({
   userData: {
     bannedProducts: [],
     recomandedKcal: { type: Number },
-    age: { type: Number },
-    height: { type: Number },
-    weight: { type: Number },
-    desiredWeight: { type: Number },
   },
 });
 

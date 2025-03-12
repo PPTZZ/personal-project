@@ -1,4 +1,3 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import bcryptjs from "bcryptjs";
 import axios from "axios";
 import { SessionOptions } from "iron-session";
@@ -40,38 +39,9 @@ export const formattedDate = (): string => {
   return formattedDate;
 };
 
-export const getLimitedProducts = createAsyncThunk(
-  "products/getLimitedProducts",
-  async (_bloodType: number, thunkAPI): Promise<any> => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/products?bloodType=${_bloodType}`
-      );
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return thunkAPI.rejectWithValue(error.response.data);
-      }
-      throw error;
-    }
-  }
-);
-
 export const fetchData = async (id: string = "0") => {
   try {
     const result = await axios.get(`http://localhost:3000/${id}/user-entries`);
-    return result;
-  } catch (err) {
-    return err;
-  }
-};
-
-export const createEntrie = async (id: string, body: {}): Promise<any> => {
-  try {
-    const result = await axios.post(
-      `http://localhost:3000/${id}/user-entries`,
-      body
-    );
     return result;
   } catch (err) {
     return err;
@@ -115,19 +85,16 @@ export const axiosPost = async (
   }
 };
 
-export const createEntry = async (
-  productName: FormDataEntryValue,
-  grams: FormDataEntryValue,
-  date: FormDataEntryValue,
-  owner: string | undefined
-) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/users/user-entries",
-      { product: productName, grams, date, owner }
-    );
-    console.log(response.status);
-  } catch (err) {
-    console.log(err);
+
+
+export const fetchProducts = async (bloodType)=>{
+try {
+  const response = await axios.get(`http://localhost:3000/products?bloodType=${bloodType}`)
+  return response.data
+} catch (error) {
+  if (error instanceof Error) {
+    return error.message;
   }
-};
+  return "An unknown error occurred";
+}
+}

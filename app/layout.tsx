@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { jostFont } from "./lib/fonts";
 import Navbar from "./ui/navigation/navbar";
+
 import StoreProvider from "./StoreProvider";
 export const metadata: Metadata = {
   title: "Slim Mom",

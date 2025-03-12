@@ -1,9 +1,10 @@
+export const dynamic = 'force-dynamic';
 import { NextPage } from "next";
 import Modal from "@/app/ui/modal";
 import Image from "next/image";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import { getSession } from "@/app/actions/actions";
+import { calculateUserKcal, getSession } from "@/app/actions/actions";
 import { redirect } from "next/navigation";
 
 const UserCalculator: NextPage = async ({}) => {
@@ -14,13 +15,14 @@ const UserCalculator: NextPage = async ({}) => {
   // Remember to import react-hot-toast
   return (
     <>
-      <Modal />
+      <Modal userId={session.userId || ''}/>
       <div className="flex flex-col lg:flex-row ">
         <div className="flex flex-col h-fit px-5 sm:px-8 md:px-4 md:w-3/5">
-          <h1 className="font-bold text-lg mt-8 sm:text-4xl sm:mt-24 ">
+          <h1 className="font-bold text-lg mt-8 sm:text-4xl  ">
             Calculate your daily calorie intake right now
           </h1>
-          <form className="bg-transparent grid grid-cols-1 sm:gap-7 sm:grid-cols-2 sm:place-items-start mt-8 z-10">
+          <form className="bg-transparent grid grid-cols-1 sm:gap-7 sm:grid-cols-2 sm:place-items-start mt-8 z-10"
+          action={calculateUserKcal}>
             <div className="flex flex-col gap-8">
               <input
                 type="number"
@@ -98,24 +100,7 @@ const UserCalculator: NextPage = async ({}) => {
             className="hidden lg:block lg:absolute lg:-right-80 lg:top-56 rotate-45"
           />
         </div>
-        <div className="lg:w-2/5 flex sm:px-8 lg:flex-col gap-20 py-20 lg:items-baseline mt-24">
-          <div className="lg:ml-32 w-2/5 lg:w-full">
-            <p className="font-bold text-textColor">Summary for date</p>
-            <p className="w-full text-secondary font-semibold sm:py-2">Left</p>
-            <p className="w-full text-secondary font-semibold sm:py-2">
-              consumed
-            </p>
-            <p className="w-full text-secondary font-semibold sm:py-2">
-              daily rate
-            </p>
-            <p className="w-full text-secondary font-semibold sm:py-2">
-              n% of normal
-            </p>
-          </div>
-          <div className=" w-2/5 lg:mt-10">
-            <p className="font-bold text-textColor">Food not recomended</p>
-          </div>
-        </div>
+        
       </div>
     </>
   );

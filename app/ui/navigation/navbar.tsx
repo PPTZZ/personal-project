@@ -56,7 +56,10 @@ const Navbar = async () => {
             <p className="font-bold text-xs leading-4 text-textColor lg:relative lg:top-5 lg:right-12 ">
               {session.userName}
             </p>
-            <p onClick={logoutUser} className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-200">
+            <p
+              onClick={logoutUser}
+              className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-200"
+            >
               Exit
             </p>
             <Image src={menu} alt="menu icon" className="lg:hidden" />

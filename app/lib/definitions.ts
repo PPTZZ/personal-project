@@ -27,6 +27,8 @@ export type TEntries = {
 };
 
 export type TModalProps = {
+  bannedProducts?: string[];
+  userId?: string | "";
   text?: string;
   calories?: number;
   onClose?: () => void;
@@ -46,7 +48,7 @@ export type RootState = {
     _id: string;
   };
   entries: {
-    entriesList: [];
+    entryList: any[];
   };
 };
 

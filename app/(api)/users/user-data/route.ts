@@ -22,27 +22,15 @@ export const GET = async (request: Request) => {
   }
 };
 
-export const PUT = async (request: Request) => {
+export const PATCH = async (request: Request) => {
   try {
     await dbConnect();
-    const url = new URL(request.url);
-    const dataBody = await request.json();
-    const searchParams = url.searchParams;
-    const age = searchParams.get("age") || 0;
-    const height = searchParams.get("height") || 0;
-    const currentWeight = searchParams.get("currentWeight") || 0;
-    const desiredWeight = searchParams.get("desiredWeight") || 0;
-    const user = await User.findById(dataBody?.userId);
-    user.userData = {
-      age: age,
-      height: height,
-      weight: currentWeight,
-      desiredWeight: desiredWeight,
-      bannedProducts: dataBody.bannedProducts,
-      recomandedKcal: dataBody.recomandedKcal,
-    };
+    const data = await request.json();
+    const user = await User.findOne({ _id: data.id });
+    user.userData.bannedProducts = data.bannedProducts;
+    user.userData.recomandedKcal = data.recomandedKcal;
     await user.save();
-    return NextResponse.json({ status: 200 });
+    return NextResponse.json(user);
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err);
